@@ -17,11 +17,30 @@ counters.forEach( (item, i) => {
     lines[i].style.width = item.innerHTML;
 });
 
+$(document).ready(function() {
+    $('#consultation-form').validate({
+        rules: {
+            name: "required",
+            email: {
+                required: true,
+                email: true
+            }
+        },
+        messages: {
+            name: "Пожалуйста, введите своё имя",
+            email: {
+                required: "Пожалуйста, введите свою почту",
+                email: "Неправильно введён адрес почты"
+            }
+        }
+    });  
+});
+
 $('form').submit(function(e) {
     e.preventDefault();
-    // if (!$(this).valid()) {
-    //     return;
-    // }
+    if (!$(this).valid()) {
+        return;
+    }
     $.ajax({
         type: "POST",
         url: "mailer/smart.php",
