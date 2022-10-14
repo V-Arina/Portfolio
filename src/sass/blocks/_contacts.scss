@@ -41,7 +41,7 @@
         grid-template-columns: repeat(2, 280px);
         grid-template-rows: 45px 190px 45px;
         justify-content: space-between;
-        row-gap: 27px;
+        row-gap: 28px;
         label {
             display: block;
             position: absolute;
@@ -52,6 +52,13 @@
             background-color: #ffffff;
             font-size: 12px;
             margin-bottom: 0;
+        }
+        label.error {
+            border: none;
+            text-align: center;
+            top: 33px;
+            font-weight: 700;
+            color: red;
         }
     }
     &__triggers {
@@ -76,6 +83,9 @@
             height: 100%;
             padding: 0 20px;
             font-size: 12px;
+            &:focus {
+                outline: none;
+            }
         }
     }
     &__textarea {
@@ -87,11 +97,17 @@
             resize: none;
             padding: 20px;
             font-size: 12px;
+            &:focus {
+                outline: none;
+            }
         }
     }
     &__btn {
         border: none;
         font-size: 14px;
         line-height: 21px;
+    }
+    &__policy {
+        position: relative;
     }
 }

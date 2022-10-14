@@ -18,36 +18,41 @@ counters.forEach( (item, i) => {
 });
 
 $(document).ready(function() {
-    $('#consultation-form').validate({
+    $('.contacts__form').validate({
         rules: {
             name: "required",
             email: {
                 required: true,
                 email: true
-            }
+            },
+            checkbox: "required"
         },
         messages: {
             name: "Пожалуйста, введите своё имя",
             email: {
                 required: "Пожалуйста, введите свою почту",
                 email: "Неправильно введён адрес почты"
+            },
+            checkbox: {
+                required: "Необходимо согласие на обработку данных"
             }
         }
-    });  
+    }); 
+    
+    $('form').submit(function(e) {
+        e.preventDefault();
+        if (!$(this).valid()) {
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            url: "mailer/smart.php",
+            data: $(this).serialize()
+        }).done(function() {
+            $(this).find("input").val("");
+            $('form').trigger('reset');
+        });
+        return false;
+    });
 });
 
-$('form').submit(function(e) {
-    e.preventDefault();
-    if (!$(this).valid()) {
-        return;
-    }
-    $.ajax({
-        type: "POST",
-        url: "mailer/smart.php",
-        data: $(this).serialize()
-    }).done(function() {
-        $(this).find("input").val("");
-        $('form').trigger('reset');
-    });
-    return false;
-});
